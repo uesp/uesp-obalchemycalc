@@ -1,0 +1,14 @@
+#
+# Deployment file for the UESP Oblivion Alchemy Calculator source as used by the uespdeploy script.
+#
+
+name = uesp.obalchemycalc
+
+ignore = .hg*
+ignore = *.deploy
+ignore = *.sh
+
+dest = content1.uesp.net:/home/uesp/www/oblivion/alchemy/
+dest = content2.uesp.net:/home/uesp/www/oblivion/alchemy/
+dest = content3.uesp.net:/home/uesp/www/oblivion/alchemy/
+

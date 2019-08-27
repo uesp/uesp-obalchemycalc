@@ -1,0 +1,182 @@
+# done:
+#  fixed php notices, warnings from going to 1.5
+#  started ajaxing
+#  added Direnni
+#  fixed problem with same ingredient being added twice (joe's bug)
+
+# before upload
+# add v0.3 to all sections
+# create tar.gz
+# remove all extra alert functions
+# make sure ajax button being called
+
+todo:
+why is font so much larger in IE
+
+x change "Oblivion_talk" to "Oblivion_Talk"
+x something strange on "The feedback page" in IE
+x ... href== instead of href=
+x blank in effects is narrower than others (add same padding as effects?)
+
+x try to figure out how to say "pick any two of the following ten ingredients"
+x remove jumbo potato, others that are completely unusable
+x   imp fluid, carrot of seeing
+try to find out statistics on randomly generated food, add that into freq
+  calculation
+x add master level single-ingredient potions
+x using custom_freq
+x some problems with burden effect
+
+write up full description page
+provide version sections
+provide code subpages?
+
+with next version:
+ add links on alchemy page, my page, effects? ingredients?
+ post on news page
+
+forum feedback:
+  recipe cards... people who want to be able to print the results
+   when they're done
+ location of ingredients
+   set up as link to wiki maps
+ gold of ingredients, gold of potion
+ potion weight
+   to be able to pick lighter of available potions
+   (just put weight into final recipe table?... add sort-by-weight option?)
+ request for minimal ingredients
+   is that necessary for me? or will the frequency filter pretty
+   much automatically pick that up
+ want to be able to copy and paste resulting list without the
+  individual effects
+
+-----
+http://www.uesp.net/w/skins/monobook/main.css
+
+need to look over recipes on Alchemy page, and double check that
+my calculator provides those reasonably easily
+
+Also should check recipes on Darliandor's page
+-----
+
+==Alchemy Calculator==
+
+This is a tool designed to help develop potions for use in Oblivion.  It is particularly intended
+to help create multi-effect potions, with the philosophy that it's always best
+to pack as many effects as possible into a single potion.
+
+Note that even for alchemy level 100, this tool will not create
+single-ingredient potions.  This is primarily because such potions must also be
+single-effect potions, which are not terribly valuable, nor are they difficult
+to figure out on your own.
+
+Nothing on the page will update until you submit your request; the page DOES
+NOT instantly change as soon as you make a selection.  However, hitting any
+button on the page will always cause all of your current selections to be
+processed. So you can make changes in multiple sections of the page at the same
+time.
+
+===Character===
+The inputs in this section are:
+* Alchemy: your character's current alchemy level.
+** This is the single most important input in this section, since the effects
+that are available will be modified based upon your character's mastery level.
+If you just want to explore what is possible, it is best to set this to a value
+of at least 75.
+** This value is also combined with with luck to determine your modified
+alchemy level.  Modified alchemy determines the strength and value of all
+potions.
+** Note that this should be your character's alchemy without any fortify
+alchemy effects, EXCEPT for the fortify alchemy provided by the Alchemy Altar
+in Frostcrag Spire.  All other fortify alchemy effects have absolutely no
+effect on your character's alchemy abilities.
+
+* Luck: your character's current luck level
+** This is used to determine modified alchemy, as dicussed above
+** This must be your character's luck attribute without any fortify luck
+effects.  Fortify luck effects cause no improvement in your character's alchemy
+abilities.
+
+* Equipment: the types and quality of alchemy equipment being used
+** These are used to determine the magnitude and duration of all potions
+
+===Effects===
+The list of available effects is determined based upon your current alchemy
+level (i.e., many effects are missing for novice alchemists, because it is
+impossible to make them at that level).  It also takes into account any
+ingredient preferences; for example the only way to make a "silence" potion at
+novice level is by combining the two varieties of Vampire Dust.  If quest
+ingredients are not being used, silence will not be available as a novice-level
+effect.
+
+The magnitude and duration shown after each ingredient are calculated based
+upon the values provided in the character section.  
+
+Options:
+* Exclude quest-specific ingredients.  Ingredients tagged as quest-specific (internally, done by setting F=0) will never be included in a potion.  Quest-specific ingredients can be enabled on an individual basis by editing the ingredient list.  By default these ingredients are:
+Ashes of Hindaril, the second type of Bonemeal, Carrot of Seeing, Imp Fluid, Jumbo Potato, Painted Troll Fat, Pinaurus' Prized Minotaur Horn, Refined Frost Salts, Rumare Slaughterfish Scales, S'jirra's Famous Potato Bread, Unicorn Horn, the second type of Vampire Dust, 
+* Exclude rare ingredients.  Ingredients that are considered to be particularly rare (internally, done by setting F=1) will never be included in a potion; this setting is independent of the quest-specific setting.  Rare ingredients are in general those without in-game sources (i.e., no plants provide them; no animals drop them; they are not common food).  By default these ingredients are:
+Ambrosia, Beef, Cheese Wheel, Ginkgo Leaf, Ham, Human Heart, Human Skin, Ironwood Nut, Lichor, Mugwort Seeds, Orange, Shepherd's Pie, Sweetcake
+** If you wish to alter which ingredients are considered rare, edit the ingredient list
+
+===Ingredients===
+This page can be used to customize which ingredients you wish to include in a
+potion.  Note that settings made here are remembered from session to session.
+If you want to undo any previous changes you made, and restore all values to
+their defaults, click on xxx.
+
+This page will usually only show the ingredients that provide the requested
+effects.  It will show both the ingredients that are currently available and
+those which are unavailable given current settings.
+
+Y(es):
+* Use this ingredient in EVERY potion.  At most four ingredients can have Y
+selected, and at that point, the calculator will only show you one recipe.
+This will override any other settings (i.e., you can include a single
+quest ingredient by choosing Y for it).
+M(aybe):
+* Default value.  This ingredient may be included in potions; whether it is
+included will depend upon the usefulness of its effects and the value of F,
+frequency (see below)
+N(o):
+* This ingredient will never be included in a potion.
+
+F(requency):
+This must be an integer from 0 to 5.  The higher the value, the more likely this
+ingredient will be included in potions.  Ingredients with low values of frequency will only be included potions if they provide a particularly useful combination of effects.
+* Note that changing all values of F to 5, for example, may not have the desired effect.  The algorithms take advantage of the range of values of F.  If too many ingredients have the same value of F, the code may be forced to start randomly ignoring ingredients.
+
+If you want to NOT use an ingredient
+* the easiest way is to click the "N" button next to the ingredient
+* you can also decrease the value under "F".  If F is set to 0 or 1, the
+ingredient will be excluded (depending on whether quest ingredients and rare
+ingredients, respectively, are being used).  Low values of F will make the ingredient unlikely to be used.  
+
+==Problems==
+(change into a FAQ?)
+
+===When I request a potion, my favorite recipe does not appear===
+Double check all the settings on the page, and make sure they reflect what you
+want.  
+
+===When I try to make a recipe, I can't add all the ingredients===
+Be sure to hit "show all ingredients" in the potion-making menu.
+
+===The magnitude/duration of the potion are wrong===
+All potion magnitudes and durations are calculated using the equations provided
+under [[Oblivion:Alchemy#Calculating Potion Strengths|Calculating Potion
+Strengths]].  These equations have been extensively tested, and should be
+accurate under all conditions.  If you find a discrepancy, first double check
+that you have correctly set all of your character settings and equipment levels
+(see notes above).  If all of the settings are correct, please let me know what
+you have found.  Be sure to provide me with all settings under Character, the
+potion effects, and both the calculator's and game's values of all durations and magnitudes.
+
+===The weight/value of the potion are wrong===
+The weights and values provided are those that would occur in the game if you
+were making this potion for the first time.  If you have previously made a
+potion, however, the weight and value will be set by that previous potion.  In
+other words, the values provided on this page will have absolutely no bearing
+on your game values.
+
+

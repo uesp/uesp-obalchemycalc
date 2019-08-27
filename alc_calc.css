@@ -1,0 +1,231 @@
+/* CSS styles for alc_calc.php, v 0.4 */
+
+/* mimic wiki's font sizing:
+** 'Font size:
+**  We take advantage of keyword scaling- browsers won't go below 9px'
+*/
+body {	font: x-small sans-serif;
+	color: black;
+	background-color: #996633;
+        margin: 0;
+	padding: 0;}
+/* scale back up to a sane default */
+#globalWrapper {
+	font-size: 127%;
+	width: 100%;
+	margin: 0;
+	padding: 0;}
+div {
+	margin: 0;
+	padding: 0;}
+
+/* separated sections for main text */
+div.section,
+ div.section_grayed {
+	background-color: white;
+	border-style: solid;
+	border-width: thin;
+	margin: 1em;
+	padding: .5em;}
+div.section_grayed,
+ div.section_grayed a:link,
+ div.section_grayed a:visited {color: #999999;}
+.disabled_input {color: #999999;}
+
+img {
+	border-style: solid;
+	border-width: thin;}
+
+p {	margin: .4em 0 .5em 0;}
+
+hr {
+	height: 1px;
+	color: #aaa;
+	background-color: #aaa;
+	border: 0;
+	margin: .1em 0 .2em 0;}
+
+h1, h2, h3, h4, h5, h6, th {
+	background: none;
+	font-weight: normal;
+        margin: 0em;
+	padding-top: .1em;
+	padding-bottom: .5em;
+	border-bottom: 1px solid #aaa;
+}
+h1 { font-size: 150%; font-weight: bold;}
+h2, h3, h4, h5, h6, th {
+	border-bottom: none;
+	font-weight: bold;
+}
+h1, h2, h3 { clear:both;}
+h2 { font-size: 132%;}
+h3 { margin-top: .5em;
+     margin-bottom: .5em;}
+h3, th { font-size: 116%;}
+h4 { font-size: 100%; }
+h5 { font-size: 80%;  }
+
+h3.potion-header {
+        position: relative;
+	background-color: #FFDD99;
+	padding: 0.2em;
+	margin-bottom: 0.4em;}
+table.noborder h3 {
+	margin: 0em;
+}
+
+em {
+	font-weight: bold;
+	font-style: normal;}
+ul {
+	list-style-type: square;
+	margin: 0 0 0 1.5em;
+	padding: 0;
+	list-style-image: url(bullet.gif);
+}
+ol {
+	margin: .3em 0 0 3.2em;
+	padding: 0;
+	list-style-image: none;
+}
+li {
+	margin-bottom: .1em;
+}
+form {
+	border: none;
+	margin: 0;
+}
+
+a:link {color: blue; text-decoration: none;}
+a:visited {color: purple; text-decoration: none;}
+
+p.note { font-size:80%;}
+.noemph {font-weight: normal;}
+.rightalign,
+ .rightalign_small {
+	position: absolute;
+	right: 1.5em;}
+.rightalign_small {
+	font-weight:normal;
+	font-size:small;}
+
+/* block used for potion statistics */
+div.infoblock {
+	float: right;
+	border:solid thin #aaaaaa;
+	line-height: 1.1;
+        width:22%;
+        padding:0.3em;
+        margin-bottom: 0.5em}
+div.infoblock ul {
+	line-height: 1.1;}
+div.infoblock li {
+	margin: 0;}
+
+div.recipeblock {
+	float: right;
+        width:50%;
+        padding:0em;}
+
+div.recipestats {
+	margin-left:3%;}
+
+/* box surrounding effect name/strength */
+.effect,
+ .effect_poison,
+ .effect_potion,
+ .effect_poison_other,
+ .effect_potion_other {
+	border: 1px #aaaaaa solid;
+	padding: 0.1em;
+        line-height: 1.6em;
+	white-space:nowrap;}
+.effectname {font-weight: bold;}
+
+/* potion/poison colours */
+.error { color: red;}
+
+.effect { background-color: #9999FF;}
+/* red for main poison effects */
+td.ingeff_poison,
+  .effect_poison { background-color: #CC6666;}
+/* green for main potion effects */
+td.ingeff_potion,
+  .effect_potion { background-color: #66CC66;}
+/* gray for main effects, unavailable */
+td.ingeff_unavail {background-color: #999999;}
+.effect_none { background-color: #FFFFFF;}
+
+/* light red for secondary poison effects */
+td.ingeff_poison_other,
+  .effect_poison_other { background-color: #EECCCC;}
+/* light green for secondary potion effects */
+td.ingeff_potion_other,
+  .effect_potion_other { background-color: #CCFFCC;}
+/* light gray for secondary effects, unavailable */
+td.ingeff_unavail_other {background-color: #CCCCCC;}
+
+table { background-color: white;
+	font-size: 100%;
+        color: inherit;}
+
+table.ingtable,
+ table.potiontable {
+  margin: 1em 1em 1em 0;
+  background: #f9f9f9;
+  border: 1px #aaaaaa solid;
+  border-collapse: collapse;
+  empty-cells: show;
+  width: 92%;
+}
+table.ingtable th, table.ingtable td,
+table.potiontable th, table.potiontable td {
+  border: 1px #aaaaaa solid;
+  padding: 0.2em;
+}
+
+table.ingtable th,
+table.potiontable th {
+  background: #FFDD99;
+  text-align: center;
+}
+
+table.ingtable caption,
+table.potiontable caption {
+  margin-left: inherit;
+  margin-right: inherit;
+}
+
+/* borderless tables used for layout */
+table.noborder {
+  border: none;
+  margin: 0em;
+  padding: 0em;
+}
+table.noborder th {
+  background: white;
+  margin: 0em;
+}
+
+table.potiontable {margin-left: 3%;
+                   text-align: center;}
+td.potioncolumn_wt {width: 10%;}
+td.potioncolumn_double {width: 36%;}
+td.potioncolumn,
+ td.potioncolumn_unused {width: 18%;}
+td.potioncolumn_unused {background-color: #CCCCCC;}
+td.potionheading {background-color: #FFDD99;}
+
+/* save boxes to right of table: no borders */
+table.potiontable td.potioncolumn_add {
+  width: 10%;
+  border-right: hidden;
+  border-top: hidden;
+  border-bottom: hidden;
+  text-align: left;
+}
+
+/* some other tags that are defined, but have no associated css info:
+   effectmag, effectmag_side: used to identify spans containing effect magnitudes
+*/

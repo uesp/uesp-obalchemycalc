@@ -13,7 +13,8 @@ require 'alchemy_init.inc';
 header("Content-Type: text/xml");
 
 $new_sess = 0;
-if (!session_is_registered('recipes')) {
+if (!isset($_SESSION['recipes'])) {
+  $_SESSION['recipes'] = 0;
   $new_sess = 1;
 }
 else {

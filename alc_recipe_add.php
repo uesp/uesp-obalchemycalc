@@ -13,12 +13,12 @@ header("Content-Type: text/xml");
 
 # Initialize all data
 $new_sess = 0;
-if (!session_is_registered('luck')) {
-  session_register('luck');
-  session_register('alchemy');
-  session_register('equip');
-  session_register('use_direnni');
-  session_register('recipes');
+if (!isset($_SESSION['luck'])) {
+  $_SESSION['luck'] = 0;
+  $_SESSION['alchemy'] = 0;
+  $_SESSION['equip'] = 0;
+  $_SESSION['use_direnni'] = 0;
+  $_SESSION['recipes'] = 0;
   $new_sess = 1;
 }
 

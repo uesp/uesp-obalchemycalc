@@ -14,26 +14,27 @@ header("Content-Type: text/xml");
 
 # Initialize all data
 $new_sess = 0;
-if (!session_is_registered('luck') ||
-    !session_is_registered('version') ||
+$new_sess = 0;
+if (!isset($_SESSION['luck']) ||
+	!isset($_SESSION['version']) ||
     $_SESSION['version'] < 0.4) {
-  session_register('luck');
-  session_register('alchemy');
-  session_register('equip');
-  session_register('use_direnni');
-  session_register('do_SI');
-  session_register('do_quest');
-  session_register('do_rare');
-  session_register('allow_neg');
-  session_register('exact_match');
-  session_register('prev_request');
-  session_register('curr_request');
-  session_register('custom_freq');
-  session_register('custom_use');
-  session_register('maxprint');
-  session_register('maxprset');
-  session_register('recipes');
-  session_register('show_section');
+  $_SESSION['luck'] = 0;
+  $_SESSION['alchemy'] = 0;
+  $_SESSION['equip'] = 0;
+  $_SESSION['use_direnni'] = 0;
+  $_SESSION['do_SI'] = 0;
+  $_SESSION['do_quest'] = 0;
+  $_SESSION['do_rare'] = 0;
+  $_SESSION['allow_neg'] = 0;
+  $_SESSION['exact_match'] = 0;
+  $_SESSION['prev_request'] = 0;
+  $_SESSION['curr_request'] = 0;
+  $_SESSION['custom_freq'] = 0;
+  $_SESSION['custom_use'] = 0;
+  $_SESSION['maxprint'] = 0;
+  $_SESSION['maxprset'] = 0;
+  $_SESSION['recipes'] = 0;
+  $_SESSION['show_section'] = 0;
   $new_sess = 1;
 }
 

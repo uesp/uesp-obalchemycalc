@@ -747,10 +747,10 @@ class Recipe {
     global $allings;
     $this->initkey = $key;
     $this->ings = array();
-    $nsets = split('x', $inglist);
+    $nsets = explode('x', $inglist);
 # explicitly count here to make sure no more than 4 input slots
     for ($ns=0; $ns<count($nsets) && $ns<4; $ns++) {
-      $this->ings[$ns] = split('_', $nsets[$ns]);
+      $this->ings[$ns] = explode('_', $nsets[$ns]);
 # make sure that there isn't any out-of-bounds data here
 # if there is, this truncating is probably going to yield bizarre results,
 # but at least the code won't crash
@@ -1231,11 +1231,11 @@ function setup_potions() {
     $eff_done = 0;
     foreach ($_POST as $key => $val) {
       if (substr($key,0,8)=="set_eff_") {
-        $elist = split('_', substr($key,8));
+        $elist = explode('_', substr($key,8));
         $exact_match = 0;
       }
       elseif (substr($key,0,10)=="exact_eff_") {
-        $elist = split('_', substr($key,10));
+        $elist = explode('_', substr($key,10));
         $exact_match = 1;
       }
       else
@@ -1296,8 +1296,8 @@ function setup_potions() {
 # assume that format of any info saved in prev_request is fine
 # (comes from session data, not posted data)
       if (isset($prev_request)) {
-        $opts = split('\+', $prev_request);
-        $eff_to_get = split('_', $opts[0]);
+        $opts = explode('+', $prev_request);
+        $eff_to_get = explode('_', $opts[0]);
         $neff = count($eff_to_get);
         $finde = array();
         for ($nt=0; $nt<count($eff_to_get); $nt++) {
@@ -1652,7 +1652,7 @@ function process_potions() {
         !$discrep &&
         !$exact_match) {
       foreach ($poteffs as $effid => $v) {
-        $effs = split('\.', $effid);
+        $effs = explode('.', $effid);
         foreach ($effs as $e) {
           if (isset($extraeffs[$e]))
             $poss_extra[$e] = 1;
@@ -1696,7 +1696,7 @@ function process_potions() {
         if ($allpotions[$ingid]->get_ning()==1)
           continue;
 
-        $effs = split('\.', $allpotions[$ingid]->get_effid());
+        $effs = explode('.', $allpotions[$ingid]->get_effid());
         $antis = array();
         $antiused = array();
         foreach ($effs as $e) {
@@ -1799,7 +1799,7 @@ function process_potions() {
 # (i.e., no additional good effects, no significant improvement in availability)
         if (!$find_poison && $allow_neg && !$discrep) {
           foreach ($npot['id-fq'] as $effid => $v) {
-            $ids = split('\.', $effid);
+            $ids = explode('.', $effid);
             $poison = 0;
             while ($alleffs[$ids[count($ids)-1]]->is_poison()) {
               $poison = 1;
@@ -1896,7 +1896,7 @@ function process_potions() {
     $prgroups = array();
     $altid = array();
     foreach ($toprint as $effid => $v) {
-      $es = split('\.', $effid);
+      $es = explode('.', $effid);
       $good = $bad = array();
       foreach ($es as $e) {
         if (isset($finde[$e]))
@@ -2114,7 +2114,7 @@ function output_potions(&$nsec, $docurr=NULL) {
     foreach ($prgroups as $prid => $v) {
       $prlabel[$prid] = "potions_";
       if (is_numeric($prid)) {
-        $prlabel[$prid] .= ereg_replace(' ', '_', $alleffs[$prid]->get_name());
+        $prlabel[$prid] .= str_replace(' ', '_', $alleffs[$prid]->get_name());
       }
       else {
         $prlabel[$prid] .= $prid;
@@ -2851,7 +2851,7 @@ function print_effid($effid, $prid) {
     $fqmax = max($fqmax, $freq);
   }
 
-  $es = split('\.\-|\+|\-|\.', $altid[$effid]);
+  $es = preg_split('/\.\-|\+|\-|\./', $altid[$effid]);
   if (is_numeric($prid))
     array_unshift($es, $prid);
   $es = array_merge($eff_to_get, $es);
@@ -3170,7 +3170,7 @@ function print_effid_ings($ingids, $ning) {
           foreach ($ids as $id => $v) {
 # can't just use $c=count($curr[$nset+1]) here, because array_splice
 # creates an empty entry at 0, which needs to be overwritten, not added after
-            $is = split('\.', $id);
+            $is = explode('.', $id);
             foreach ($is as $it) {
               $curr[$nset+1][$c][$it] = 1;
             }
@@ -3403,11 +3403,11 @@ function sort_by_score($a, $b) {
 }
 
 function sort_extraeff($a, $b) {
-  global $extraeffs;
-  if ($extraeffs[$a]==$extraeffs[$b])
+		// Note: Use $GLOBALS instead of global to get around warning like "uksort: Array was modified by the user..."
+  if ($GLOBALS['extraeffs'][$a]==$GLOBALS['extraeffs'][$b])
     return comp_ab($a, $b);
   else
-    return comp_ab($extraeffs[$b], $extraeffs[$a]);
+    return comp_ab($GLOBALS['extraeffs'][$b], $GLOBALS['extraeffs'][$a]);
 }
 
 function sort_by_eff_score($a, $b) {
@@ -3429,7 +3429,9 @@ function sort_by_eff_score_noneg($a, $b) {
 # originally this function sorted by effect strength
 # but now it just goes alphabetically
 function sort_by_eff_str($a, $b) {
-  global $alleffs;
+  // Note: Use $GLOBALS instead of global to get around warning like "uksort: Array was modified by the user..."
+  //global $alleffs;
+  
   if ($a === 'base')
     return -1;
   elseif ($b === 'base')
@@ -3452,18 +3454,18 @@ function sort_by_eff_str($a, $b) {
 function sort_by_altid($a, $b) {
   global $altid;
 
-  $splita = split('\.', $altid[$a]);
-  $splitb = split('\.', $altid[$b]);
-  $suba = split('\+', $splita[0]);
-  $subb = split('\+', $splitb[0]);
+  $splita = explode('.', $altid[$a]);
+  $splitb = explode('.', $altid[$b]);
+  $suba = explode('+', $splita[0]);
+  $subb = explode('+', $splitb[0]);
   if (count($suba)!=count($subb))
     return comp_ab(count($subb), count($suba));
   for ($n=0; $n<count($suba); $n++) {
     if ($suba[$n]!=$subb[$n])
       return sort_by_eff_str($suba[$n], $subb[$n]);
   }
-  $suba = split('\-', $splita[1]);
-  $subb = split('\-', $splitb[1]);
+  $suba = explode('-', $splita[1]);
+  $subb = explode('-', $splitb[1]);
   if (count($suba)!=count($subb))
     return comp_ab(count($suba), count($subb));
   for ($n=0; $n<count($suba); $n++) {

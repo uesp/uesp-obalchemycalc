@@ -29,11 +29,11 @@ if (!isset($_SESSION['luck']) ||
   $_SESSION['exact_match'] = 0;
   $_SESSION['prev_request'] = 0;
   $_SESSION['curr_request'] = 0;
-  $_SESSION['custom_freq'] = 0;
-  $_SESSION['custom_use'] = 0;
+  $_SESSION['custom_freq'] = array();
+  $_SESSION['custom_use'] = array();
   $_SESSION['maxprint'] = 0;
   $_SESSION['maxprset'] = 0;
-  $_SESSION['recipes'] = 0;
+  $_SESSION['recipes'] = array();
   $_SESSION['show_section'] = 0;
   $new_sess = 1;
 }

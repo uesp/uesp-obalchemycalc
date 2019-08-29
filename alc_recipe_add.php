@@ -18,7 +18,7 @@ if (!isset($_SESSION['luck'])) {
   $_SESSION['alchemy'] = 0;
   $_SESSION['equip'] = 0;
   $_SESSION['use_direnni'] = 0;
-  $_SESSION['recipes'] = 0;
+  $_SESSION['recipes'] = array();
   $new_sess = 1;
 }
 

@@ -27,7 +27,7 @@ require 'alchemy_init.inc';
 
 $new_sess = 0;
 if (!isset($_SESSION['recipes'])) {
-  $_SESSION['recipes'] = 0;
+  $_SESSION['recipes'] = array();
   $new_sess = 1;
 }
 else {

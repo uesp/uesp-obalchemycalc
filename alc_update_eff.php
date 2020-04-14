@@ -20,7 +20,7 @@ if (!isset($_SESSION['luck']) ||
     $_SESSION['version'] < 0.4) {
   $_SESSION['luck'] = 0;
   $_SESSION['alchemy'] = 0;
-  $_SESSION['equip'] = 0;
+  $_SESSION['equip'] = array();
   $_SESSION['use_direnni'] = 0;
   $_SESSION['do_SI'] = 0;
   $_SESSION['do_quest'] = 0;
@@ -40,7 +40,13 @@ if (!isset($_SESSION['luck']) ||
 
 $luck =& $_SESSION['luck'];
 $alchemy =& $_SESSION['alchemy'];
+
 $equip =& $_SESSION['equip'];
+if (!is_array($equip)) {
+	$_SESSION['equip'] = array();
+	$equip =& $_SESSION['equip'];
+}
+
 $use_direnni =& $_SESSION['use_direnni'];
 $do_SI =& $_SESSION['do_SI'];
 $do_quest =& $_SESSION['do_quest'];
@@ -49,8 +55,19 @@ $allow_neg =& $_SESSION['allow_neg'];
 $exact_match =& $_SESSION['exact_match'];
 $prev_request =& $_SESSION['prev_request'];
 $curr_request =& $_SESSION['curr_request'];
+
 $custom_freq =& $_SESSION['custom_freq'];
+if (!is_array($custom_freq)) {
+	$_SESSION['custom_freq'] = array();
+	$custom_freq =& $_SESSION['custom_freq'];
+}
+
 $custom_use =& $_SESSION['custom_use'];
+if (!is_array($custom_use)) {
+	$_SESSION['custom_use'] = array();
+	$custom_use =& $_SESSION['custom_use'];
+}
+
 $maxprint =& $_SESSION['maxprint'];
 $maxprset =& $_SESSION['maxprset'];
 $recipes =& $_SESSION['recipes'];
